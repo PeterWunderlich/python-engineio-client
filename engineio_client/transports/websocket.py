@@ -30,7 +30,7 @@ class Websocket(Transport):
         if self.client and self.client.sid:
             query['sid'] = self.client.sid
 
-        querystring = urllib.urlencode(query)
+        querystring = urllib.parse.urlencode(query)
 
         return '%s://%s:%d%s/?%s' % (self.scheme, self.hostname,
                                     self.port, self.path, querystring)

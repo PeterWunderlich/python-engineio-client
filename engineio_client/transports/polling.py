@@ -30,7 +30,7 @@ class Polling(Transport):
         if self.client and self.client.sid:
             query['sid'] = self.client.sid
         querystring = '?' + '&'.join(
-            ['='.join(item) for item in query.iteritems()]
+            ['%s=%s' % (item, query[item]) for item in query]
         ) if query else ''
 
         return '%s://%s:%d%s/%s' % (self.scheme, self.hostname,
@@ -84,20 +84,19 @@ class Polling(Transport):
         if not self.reading and not self.writing:
             self.handle_pause()
 
-        class nonlocal:
-            remaining_tasks = 0
+        nonlocal_remaining_tasks = 0
 
         def terminate_task():
-            nonlocal.remaining_tasks -= 1
-            if nonlocal.remaining_tasks <= 0:
+            nonlocal_remaining_tasks -= 1
+            if nonlocal_remaining_tasks <= 0:
                 self.handle_pause()
 
         if self.reading:
-            nonlocal.remaining_tasks += 1
+            nonlocal_remaining_tasks += 1
             self.once('read-done', terminate_task)
 
         if self.writing:
-            nonlocal.remaining_tasks += 1
+            nonlocal_remaining_tasks += 1
             self.once('write-done', terminate_task)
 
     def read(self):
