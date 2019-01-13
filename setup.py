@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-python-engineio-client
+engineio-client
 ----------------------
 
 Engine.IO client.
@@ -8,11 +8,11 @@ Engine.IO client.
 from setuptools import setup
 
 setup(
-    name='python-engineio-client',
+    name='engineio-client',
     version='0.2',
-    url='http://github.com/veo-labs/python-engineio-client/',
+    url='http://github.com/PeterWunderlich/python-engineio-client/',
     license='MIT',
-    author='Frédéric Sureau',
+    author='Peter Wunderlich',
     author_email='frederic.sureau@veo-labs.com',
     description='Engine.IO client',
     long_description=open('README.rst').read(),
